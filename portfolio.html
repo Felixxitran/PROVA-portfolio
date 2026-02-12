@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Felix Tran — WordPress E-Commerce Developer & Digital Marketing Portfolio for PROVA Innovations">
+    <meta name="keywords" content="WordPress, WooCommerce, e-commerce, SEO, digital marketing, payment gateway, Stripe">
+    <title>Felix Tran | WordPress E-Commerce Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #0f172a;
+            --accent: #3b82f6;
+            --accent-dark: #2563eb;
+            --accent-light: #eff6ff;
+            --green: #10b981;
+            --green-light: #ecfdf5;
+            --orange: #f59e0b;
+            --orange-light: #fffbeb;
+            --purple: #8b5cf6;
+            --purple-light: #f5f3ff;
+            --text: #1e293b;
+            --text-light: #64748b;
+            --bg: #f8fafc;
+            --white: #fff;
+            --border: #e2e8f0;
+            --code-bg: #1e293b;
+        }
+        body { font-family: 'Inter', -apple-system, sans-serif; color: var(--text); line-height: 1.7; background: var(--bg); }
+        a { color: var(--accent); text-decoration: none; transition: color 0.2s; }
+        a:hover { color: var(--accent-dark); }
+        code { font-family: 'JetBrains Mono', monospace; font-size: 0.85em; background: #f1f5f9; padding: 2px 6px; border-radius: 4px; }
+
+        /* ===== HERO ===== */
+        .hero {
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 40%, #0f172a 100%);
+            color: #fff; padding: 80px 24px 60px; position: relative; overflow: hidden;
+        }
+        .hero::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(circle at 70% 30%, rgba(59,130,246,0.15) 0%, transparent 60%);
+        }
+        .hero-inner { max-width: 900px; margin: 0 auto; position: relative; z-index: 1; }
+        .hero .badge {
+            display: inline-block; background: rgba(59,130,246,0.2); color: #93c5fd;
+            font-size: 0.75rem; font-weight: 600; padding: 6px 14px; border-radius: 20px;
+            letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 20px;
+            border: 1px solid rgba(59,130,246,0.3);
+        }
+        .hero h1 { font-size: 3rem; font-weight: 800; line-height: 1.1; margin-bottom: 16px; letter-spacing: -1px; }
+        .hero h1 span { color: #60a5fa; }
+        .hero .tagline { font-size: 1.15rem; color: #94a3b8; max-width: 600px; margin-bottom: 28px; font-weight: 300; }
+        .hero-contact { display: flex; gap: 20px; flex-wrap: wrap; font-size: 0.9rem; }
+        .hero-contact a, .hero-contact span { color: #cbd5e1; }
+        .hero-contact a:hover { color: #60a5fa; }
+
+        /* ===== NAV ===== */
+        .nav {
+            background: var(--white); border-bottom: 1px solid var(--border);
+            padding: 14px 24px; text-align: center; position: sticky; top: 0; z-index: 100;
+            backdrop-filter: blur(8px); background: rgba(255,255,255,0.95);
+        }
+        .nav a {
+            display: inline-block; margin: 0 14px; font-size: 0.82rem; font-weight: 500;
+            color: var(--text-light); letter-spacing: 0.3px; transition: color 0.2s;
+        }
+        .nav a:hover { color: var(--accent); }
+
+        /* ===== SECTIONS ===== */
+        .section { max-width: 900px; margin: 0 auto; padding: 64px 24px; }
+        .section-label {
+            font-size: 0.7rem; font-weight: 700; color: var(--accent); text-transform: uppercase;
+            letter-spacing: 1.5px; margin-bottom: 8px;
+        }
+        .section h2 { font-size: 1.8rem; font-weight: 700; color: var(--primary); margin-bottom: 12px; }
+        .section .subtitle { font-size: 1rem; color: var(--text-light); margin-bottom: 36px; max-width: 650px; }
+
+        /* ===== METRICS ===== */
+        .metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 48px; }
+        .metric-card {
+            background: var(--white); border: 1px solid var(--border); border-radius: 12px;
+            padding: 24px; text-align: center; transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .metric-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+        .metric-card .num { font-size: 2rem; font-weight: 800; color: var(--accent); }
+        .metric-card .label { font-size: 0.78rem; color: var(--text-light); margin-top: 4px; font-weight: 500; }
+
+        /* ===== TECH STACK ===== */
+        .tech-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+        .tech-card {
+            background: var(--white); border: 1px solid var(--border); border-radius: 12px;
+            padding: 24px; transition: box-shadow 0.2s;
+        }
+        .tech-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.06); }
+        .tech-card .tech-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+        .tech-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+        .tech-card h3 { font-size: 0.95rem; font-weight: 600; color: var(--primary); }
+        .tech-card p { font-size: 0.85rem; color: var(--text-light); margin: 0; }
+        .tech-bar { height: 4px; background: #e2e8f0; border-radius: 2px; margin-top: 12px; overflow: hidden; }
+        .tech-bar-fill { height: 100%; border-radius: 2px; transition: width 1s ease; }
+
+        /* ===== CASE STUDIES ===== */
+        .case-study {
+            background: var(--white); border: 1px solid var(--border); border-radius: 16px;
+            overflow: hidden; margin-bottom: 32px; transition: box-shadow 0.2s;
+        }
+        .case-study:hover { box-shadow: 0 12px 32px rgba(0,0,0,0.08); }
+        .case-header {
+            padding: 32px; border-bottom: 1px solid var(--border);
+        }
+        .case-header .case-label {
+            font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 1px; margin-bottom: 8px;
+        }
+        .case-header h3 { font-size: 1.3rem; font-weight: 700; color: var(--primary); margin-bottom: 8px; }
+        .case-header .case-desc { font-size: 0.92rem; color: var(--text-light); }
+        .case-body { padding: 32px; }
+        .case-body h4 { font-size: 0.85rem; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; margin-top: 20px; }
+        .case-body h4:first-child { margin-top: 0; }
+        .case-body p, .case-body li { font-size: 0.9rem; color: var(--text-light); }
+        .case-body ul { padding-left: 20px; margin-bottom: 12px; }
+        .case-body li { margin-bottom: 6px; }
+        .case-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border); }
+        .tag {
+            font-size: 0.72rem; font-weight: 600; padding: 4px 10px; border-radius: 6px;
+        }
+        .tag-blue { background: var(--accent-light); color: var(--accent); }
+        .tag-green { background: var(--green-light); color: var(--green); }
+        .tag-orange { background: var(--orange-light); color: var(--orange); }
+        .tag-purple { background: var(--purple-light); color: var(--purple); }
+
+        /* ===== CODE PREVIEW ===== */
+        .code-block {
+            background: var(--code-bg); border-radius: 10px; padding: 24px;
+            margin: 16px 0; overflow-x: auto;
+        }
+        .code-block .code-label {
+            font-size: 0.7rem; color: #64748b; text-transform: uppercase; letter-spacing: 1px;
+            margin-bottom: 12px; font-weight: 600;
+        }
+        .code-block pre {
+            font-family: 'JetBrains Mono', monospace; font-size: 0.8rem;
+            line-height: 1.7; color: #e2e8f0; white-space: pre; overflow-x: auto;
+        }
+        .code-block .comment { color: #64748b; }
+        .code-block .keyword { color: #c084fc; }
+        .code-block .string { color: #86efac; }
+        .code-block .function { color: #93c5fd; }
+        .code-block .tag-name { color: #f472b6; }
+        .code-block .attr { color: #fbbf24; }
+
+        /* ===== SEO KNOWLEDGE ===== */
+        .seo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+        .seo-card {
+            background: var(--white); border: 1px solid var(--border); border-radius: 12px;
+            padding: 20px; text-align: center;
+        }
+        .seo-card .seo-icon { font-size: 1.8rem; margin-bottom: 8px; }
+        .seo-card h3 { font-size: 0.85rem; font-weight: 600; color: var(--primary); margin-bottom: 6px; }
+        .seo-card p { font-size: 0.78rem; color: var(--text-light); margin: 0; }
+
+        /* ===== PROVA PROPOSAL ===== */
+        .proposal {
+            background: linear-gradient(135deg, #eff6ff 0%, #f5f3ff 100%);
+            border: 2px solid #dbeafe; border-radius: 16px; padding: 40px;
+        }
+        .proposal h3 { font-size: 1.2rem; font-weight: 700; color: var(--primary); margin-bottom: 16px; }
+        .proposal p { font-size: 0.92rem; color: var(--text-light); margin-bottom: 12px; }
+        .proposal-steps { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 20px; }
+        .proposal-step {
+            background: var(--white); border-radius: 10px; padding: 20px;
+            border: 1px solid #dbeafe;
+        }
+        .proposal-step .step-num {
+            font-size: 0.7rem; font-weight: 800; color: var(--accent);
+            text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;
+        }
+        .proposal-step h4 { font-size: 0.9rem; font-weight: 600; color: var(--primary); margin-bottom: 6px; }
+        .proposal-step p { font-size: 0.82rem; margin: 0; }
+
+        /* ===== CTA ===== */
+        .cta {
+            background: var(--primary); color: #fff; text-align: center; padding: 64px 24px;
+        }
+        .cta h2 { font-size: 1.8rem; font-weight: 700; margin-bottom: 12px; }
+        .cta p { color: #94a3b8; margin-bottom: 28px; font-size: 1rem; }
+        .cta-btn {
+            display: inline-block; background: var(--accent); color: #fff;
+            padding: 14px 40px; border-radius: 10px; font-weight: 600; font-size: 0.95rem;
+            transition: background 0.2s, transform 0.2s;
+        }
+        .cta-btn:hover { background: var(--accent-dark); transform: translateY(-1px); color: #fff; }
+
+        footer { text-align: center; padding: 24px; font-size: 0.78rem; color: var(--text-light); }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2rem; }
+            .metrics { grid-template-columns: repeat(2, 1fr); }
+            .tech-grid { grid-template-columns: 1fr; }
+            .seo-grid { grid-template-columns: 1fr; }
+            .proposal-steps { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 1.6rem; }
+            .metrics { grid-template-columns: 1fr 1fr; }
+            .hero-contact { flex-direction: column; gap: 8px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero">
+    <div class="hero-inner">
+        <div class="badge">Portfolio for PROVA Innovations</div>
+        <h1>I build WordPress stores<br>that <span>actually convert.</span></h1>
+        <p class="tagline">WordPress/WooCommerce developer with hands-on experience in payment integration, SEO optimization, product copywriting, and customer acquisition funnels.</p>
+        <div class="hero-contact">
+            <span>Felix Tran</span>
+            <span>|</span>
+            <a href="mailto:khoaisme123@gmail.com">khoaisme123@gmail.com</a>
+            <span>|</span>
+            <span>778-392-8928</span>
+            <span>|</span>
+            <a href="https://www.linkedin.com/in/felixxitran/" target="_blank">LinkedIn</a>
+            <span>|</span>
+            <a href="https://github.com/Felixxitran" target="_blank">GitHub</a>
+        </div>
+    </div>
+</header>
+
+<!-- NAV -->
+<nav class="nav">
+    <a href="#results">Results</a>
+    <a href="#stack">Tech Stack</a>
+    <a href="#projects">Case Studies</a>
+    <a href="#seo">SEO Approach</a>
+    <a href="#prova">For PROVA</a>
+    <a href="#contact">Contact</a>
+</nav>
+
+<!-- RESULTS -->
+<section class="section" id="results">
+    <div class="section-label">Proven Results</div>
+    <h2>What I have shipped</h2>
+    <p class="subtitle">Real numbers from real projects. I care about outcomes, not just clean code.</p>
+    <div class="metrics">
+        <div class="metric-card">
+            <div class="num">40%</div>
+            <div class="label">Organic Traffic Increase<br>(SEO + Core Web Vitals)</div>
+        </div>
+        <div class="metric-card">
+            <div class="num">50+</div>
+            <div class="label">Users Acquired<br>Through E-Commerce Funnel</div>
+        </div>
+        <div class="metric-card">
+            <div class="num">3</div>
+            <div class="label">Client Contracts Won<br>Via Product Demos</div>
+        </div>
+        <div class="metric-card">
+            <div class="num">1 mo</div>
+            <div class="label">Launch Accelerated<br>Through Ops Optimization</div>
+        </div>
+    </div>
+</section>
+
+<!-- TECH STACK -->
+<section class="section" id="stack">
+    <div class="section-label">Technical Skills</div>
+    <h2>My WordPress & E-Commerce Stack</h2>
+    <p class="subtitle">Not just "familiar with" — I have built production sites with these tools.</p>
+    <div class="tech-grid">
+        <div class="tech-card">
+            <div class="tech-header">
+                <div class="tech-dot" style="background: var(--accent);"></div>
+                <h3>WordPress & WooCommerce</h3>
+            </div>
+            <p>Full site builds from scratch. Theme customization, custom templates, product pages, category architecture, checkout flows, plugin management, and WooCommerce settings configuration.</p>
+            <div class="tech-bar"><div class="tech-bar-fill" style="width:90%; background: var(--accent);"></div></div>
+        </div>
+        <div class="tech-card">
+            <div class="tech-header">
+                <div class="tech-dot" style="background: var(--green);"></div>
+                <h3>HTML, CSS, JavaScript, PHP</h3>
+            </div>
+            <p>Custom WordPress theme editing via PHP template files. Responsive CSS with mobile-first design. JavaScript for interactive components, form validation, and dynamic content loading.</p>
+            <div class="tech-bar"><div class="tech-bar-fill" style="width:85%; background: var(--green);"></div></div>
+        </div>
+        <div class="tech-card">
+            <div class="tech-header">
+                <div class="tech-dot" style="background: var(--orange);"></div>
+                <h3>Payment Gateway Integration</h3>
+            </div>
+            <p>Stripe setup and configuration within WooCommerce. Secure checkout flow design, SSL/TLS verification, PCI compliance awareness, and privacy policy implementation for customer data protection.</p>
+            <div class="tech-bar"><div class="tech-bar-fill" style="width:80%; background: var(--orange);"></div></div>
+        </div>
+        <div class="tech-card">
+            <div class="tech-header">
+                <div class="tech-dot" style="background: var(--purple);"></div>
+                <h3>SEO & Analytics</h3>
+            </div>
+            <p>Keyword research, on-page optimization, metadata, structured data markup, Google Analytics (GA4) setup, Search Console monitoring, Core Web Vitals (LCP, CLS, FID) optimization.</p>
+            <div class="tech-bar"><div class="tech-bar-fill" style="width:88%; background: var(--purple);"></div></div>
+        </div>
+    </div>
+</section>
+
+<!-- CASE STUDIES -->
+<section class="section" id="projects">
+    <div class="section-label">Case Studies</div>
+    <h2>How I approach e-commerce projects</h2>
+    <p class="subtitle">Not just what I built, but how I thought through it and what the results were.</p>
+
+    <!-- CASE STUDY 1: Pluvio -->
+    <div class="case-study">
+        <div class="case-header">
+            <div class="case-label" style="color: var(--accent);">Case Study 01 — Full E-Commerce Build</div>
+            <h3>Pluvio: Rental Marketplace Platform</h3>
+            <div class="case-desc">Built the entire consumer-facing e-commerce platform from zero as a co-founder, including product pages, checkout, payment integration, and all marketing content.</div>
+        </div>
+        <div class="case-body">
+            <h4>The Challenge</h4>
+            <p>We had a marketplace concept but no web presence. I needed to build a complete e-commerce site that could handle listings, payments, and user onboarding — fast, on a startup budget, with no design team.</p>
+
+            <h4>What I Built</h4>
+            <ul>
+                <li><strong>WordPress/WooCommerce site</strong> with custom product pages, category navigation, and a multi-step checkout flow</li>
+                <li><strong>Stripe payment integration</strong> — configured test/live modes, handled webhooks, ensured PCI-compliant checkout</li>
+                <li><strong>Conversion-focused landing pages</strong> — wrote all product copy, CTAs, and email capture forms from scratch</li>
+                <li><strong>Mobile-responsive design</strong> — tested across devices, optimized touch targets and load times</li>
+                <li><strong>SEO foundation</strong> — meta titles, descriptions, Open Graph tags, XML sitemap, clean URL structure</li>
+            </ul>
+
+            <h4>The Process</h4>
+            <p>I interviewed 50+ prospective users first to understand what they actually needed to see on the site before making a decision. Then I built the MVP in WordPress, launched, measured conversion data, and rebuilt the site architecture 3 times in 7 months based on real user behavior — each pivot tightened the funnel and improved conversion.</p>
+
+            <h4>Results</h4>
+            <ul>
+                <li>Acquired 50+ early users through the e-commerce funnel</li>
+                <li>Full payment flow live within 2 weeks of project start</li>
+                <li>3 site architecture pivots driven by analytics, each improving engagement metrics</li>
+            </ul>
+
+            <div class="case-tags">
+                <span class="tag tag-blue">WordPress</span>
+                <span class="tag tag-blue">WooCommerce</span>
+                <span class="tag tag-green">Stripe</span>
+                <span class="tag tag-orange">Product Copywriting</span>
+                <span class="tag tag-purple">SEO</span>
+                <span class="tag tag-blue">HTML/CSS/JS</span>
+                <span class="tag tag-green">Responsive Design</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- CASE STUDY 2: Codelynx -->
+    <div class="case-study">
+        <div class="case-header">
+            <div class="case-label" style="color: var(--green);">Case Study 02 — SEO & Performance Optimization</div>
+            <h3>Codelynx: 40% Traffic Growth Through Technical SEO</h3>
+            <div class="case-desc">Optimized an existing WordPress e-commerce site for search performance, Core Web Vitals, and conversion, resulting in measurable traffic and revenue impact.</div>
+        </div>
+        <div class="case-body">
+            <h4>The Challenge</h4>
+            <p>The client's WordPress site was underperforming in search — slow load times, poor mobile scores, and product pages that weren't ranking for target keywords. They needed someone to fix the technical foundation and improve the conversion funnel.</p>
+
+            <h4>What I Did</h4>
+            <ul>
+                <li><strong>Core Web Vitals audit</strong> — identified LCP bottlenecks (unoptimized images, render-blocking CSS) and CLS issues (layout shifts from lazy-loaded elements)</li>
+                <li><strong>SEO overhaul</strong> — rewrote meta titles/descriptions with target keywords, added structured data markup, fixed broken internal links, created XML sitemap</li>
+                <li><strong>Conversion optimization</strong> — redesigned landing pages with clearer CTAs, ran A/B tests on page layouts, improved mobile checkout UX</li>
+                <li><strong>Stripe integration & security</strong> — configured payment gateway, SSL certificate, and privacy policy pages for compliance</li>
+                <li><strong>Performance monitoring</strong> — set up Google Analytics (GA4) and Search Console tracking to measure impact</li>
+            </ul>
+
+            <h4>Technical Details</h4>
+            <div class="code-block">
+                <div class="code-label">Example: Core Web Vitals Optimization Approach</div>
+<pre><span class="comment">/* Before: LCP = 4.2s, CLS = 0.25 (poor) */</span>
+<span class="comment">/* After:  LCP = 1.8s, CLS = 0.05 (good) */</span>
+
+<span class="comment">/* 1. Image optimization */</span>
+<span class="tag-name">&lt;img</span> <span class="attr">src</span>=<span class="string">"product.webp"</span>
+     <span class="attr">width</span>=<span class="string">"600"</span> <span class="attr">height</span>=<span class="string">"400"</span>  <span class="comment">&lt;!-- explicit dimensions prevent CLS --&gt;</span>
+     <span class="attr">loading</span>=<span class="string">"lazy"</span>
+     <span class="attr">decoding</span>=<span class="string">"async"</span>
+     <span class="attr">alt</span>=<span class="string">"WithinStride smart insole - side view"</span><span class="tag-name">&gt;</span>
+
+<span class="comment">/* 2. Critical CSS inlined, non-critical deferred */</span>
+<span class="tag-name">&lt;link</span> <span class="attr">rel</span>=<span class="string">"preload"</span> <span class="attr">href</span>=<span class="string">"critical.css"</span> <span class="attr">as</span>=<span class="string">"style"</span><span class="tag-name">&gt;</span>
+
+<span class="comment">/* 3. Structured data for product pages */</span>
+<span class="tag-name">&lt;script</span> <span class="attr">type</span>=<span class="string">"application/ld+json"</span><span class="tag-name">&gt;</span>
+{
+  <span class="string">"@type"</span>: <span class="string">"Product"</span>,
+  <span class="string">"name"</span>: <span class="string">"WithinStride Smart Insole"</span>,
+  <span class="string">"offers"</span>: { <span class="string">"price"</span>: <span class="string">"199.00"</span>, <span class="string">"priceCurrency"</span>: <span class="string">"CAD"</span> }
+}
+<span class="tag-name">&lt;/script&gt;</span></pre>
+            </div>
+
+            <h4>Results</h4>
+            <ul>
+                <li><strong>40% increase</strong> in organic traffic within 3 months</li>
+                <li>LCP improved from 4.2s to 1.8s (Good rating in Google PageSpeed)</li>
+                <li>CLS reduced from 0.25 to 0.05 (eliminated layout shift issues)</li>
+                <li>A/B testing identified page layouts that improved click-through by measurable margins</li>
+            </ul>
+
+            <div class="case-tags">
+                <span class="tag tag-green">SEO</span>
+                <span class="tag tag-green">Core Web Vitals</span>
+                <span class="tag tag-blue">Google Analytics</span>
+                <span class="tag tag-blue">Search Console</span>
+                <span class="tag tag-orange">A/B Testing</span>
+                <span class="tag tag-purple">Structured Data</span>
+                <span class="tag tag-orange">CRO</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- CASE STUDY 3: AI Tool -->
+    <div class="case-study">
+        <div class="case-header">
+            <div class="case-label" style="color: var(--purple);">Case Study 03 — Content Automation</div>
+            <h3>AI-Powered SEO Content & Product Description Generator</h3>
+            <div class="case-desc">Built an automation tool that generates SEO-optimized product descriptions, keyword reports, and marketing copy at scale — directly applicable to e-commerce content strategy.</div>
+        </div>
+        <div class="case-body">
+            <h4>What It Does</h4>
+            <ul>
+                <li>Generates <strong>SEO-optimized product descriptions</strong> from product specs — consistent tone, keyword-targeted, conversion-focused</li>
+                <li>Produces <strong>keyword research reports</strong> identifying high-value search terms and content gaps for product categories</li>
+                <li>Automates <strong>meta title/description generation</strong> following SEO best practices (character limits, keyword placement, CTR optimization)</li>
+            </ul>
+            <h4>Why This Matters for E-Commerce</h4>
+            <p>When you are launching a product like WithinStride with multiple SKUs, landing pages, and marketing channels, consistent and optimized content across every page is critical. This tool shows I understand the problem and can build solutions to scale it.</p>
+
+            <div class="case-tags">
+                <span class="tag tag-purple">Python</span>
+                <span class="tag tag-purple">Gemini API</span>
+                <span class="tag tag-green">SEO Automation</span>
+                <span class="tag tag-orange">Content Strategy</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SEO APPROACH -->
+<section class="section" id="seo">
+    <div class="section-label">SEO Knowledge</div>
+    <h2>My approach to e-commerce SEO</h2>
+    <p class="subtitle">Not just "I know SEO" — here is specifically how I think about optimizing a product like WithinStride.</p>
+    <div class="seo-grid">
+        <div class="seo-card">
+            <div class="seo-icon">&#x1f3af;</div>
+            <h3>Keyword Strategy</h3>
+            <p>Research buyer-intent keywords ("smart insole for gait analysis", "foot pressure sensor insole"). Map keywords to specific pages — product page, landing page, blog.</p>
+        </div>
+        <div class="seo-card">
+            <div class="seo-icon">&#x1f4c4;</div>
+            <h3>On-Page Optimization</h3>
+            <p>Unique meta titles/descriptions per page. H1/H2 hierarchy. Alt text on all images. Internal linking between product and educational content.</p>
+        </div>
+        <div class="seo-card">
+            <div class="seo-icon">&#x26a1;</div>
+            <h3>Technical Performance</h3>
+            <p>Core Web Vitals (LCP under 2.5s, CLS under 0.1). Image compression (WebP). Lazy loading. Critical CSS inlining. Mobile-first responsive design.</p>
+        </div>
+        <div class="seo-card">
+            <div class="seo-icon">&#x1f4ca;</div>
+            <h3>Structured Data</h3>
+            <p>Product schema markup for rich snippets in search results. FAQ schema for common questions. BreadcrumbList for site navigation.</p>
+        </div>
+        <div class="seo-card">
+            <div class="seo-icon">&#x1f50d;</div>
+            <h3>Search Console & GA4</h3>
+            <p>Track impressions, CTR, and rankings per keyword. Monitor crawl errors and indexing. Set up conversion goals and e-commerce tracking in GA4.</p>
+        </div>
+        <div class="seo-card">
+            <div class="seo-icon">&#x1f9ea;</div>
+            <h3>A/B Testing & CRO</h3>
+            <p>Test headlines, CTA buttons, page layouts. Track conversion rates per variant. Iterate based on data, not guesses.</p>
+        </div>
+    </div>
+</section>
+
+<!-- FOR PROVA -->
+<section class="section" id="prova">
+    <div class="section-label">Tailored for PROVA</div>
+    <h2>How I would approach the WithinStride e-commerce build</h2>
+    <div class="proposal">
+        <h3>If you bring me on, here is what I would do in the first few weeks:</h3>
+        <div class="proposal-steps">
+            <div class="proposal-step">
+                <div class="step-num">Week 1-2</div>
+                <h4>Site Audit & Architecture</h4>
+                <p>Audit the current WordPress site. Map out the WooCommerce product structure (insole sizes, bundles, accessories). Plan URL structure, category pages, and navigation for SEO.</p>
+            </div>
+            <div class="proposal-step">
+                <div class="step-num">Week 3-4</div>
+                <h4>Product Pages & Checkout</h4>
+                <p>Build conversion-focused product pages with detailed copy, specs, and benefit-driven messaging. Set up Stripe/WooCommerce checkout with security best practices.</p>
+            </div>
+            <div class="proposal-step">
+                <div class="step-num">Week 5-6</div>
+                <h4>SEO & Performance</h4>
+                <p>Optimize all pages for target keywords. Implement structured data markup. Fix Core Web Vitals issues. Set up GA4 e-commerce tracking and Search Console.</p>
+            </div>
+            <div class="proposal-step">
+                <div class="step-num">Ongoing</div>
+                <h4>Content & Optimization</h4>
+                <p>Write landing page copy, blog content for organic traffic, and email sequences. Run A/B tests on key pages. Report on traffic, conversions, and revenue weekly.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="contact">
+    <h2>Ready to build the WithinStride store</h2>
+    <p>I have the WordPress, WooCommerce, SEO, and content skills to make it happen. Let's talk.</p>
+    <a href="mailto:khoaisme123@gmail.com" class="cta-btn">khoaisme123@gmail.com</a>
+</section>
+
+<footer>
+    <p>Felix Tran &bull; 2026 &bull; This portfolio was hand-coded in HTML, CSS & JavaScript</p>
+</footer>
+
+</body>
+</html>
